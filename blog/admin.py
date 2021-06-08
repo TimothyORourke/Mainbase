@@ -7,4 +7,4 @@ from . import models
 
 @register(models.Post)
 class PostAdmin(admin.ModelAdmin):
-    readonly_fields = ('date_created', 'last_updated',)
+    readonly_fields = ('date_posted', 'last_updated',)
