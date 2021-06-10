@@ -12,4 +12,4 @@ def index(request):
     else:
         posts = Post.objects.all().order_by('date_posted')
 
-    return render(request, 'blog/base.html', { 'posts' : posts })
+    return render(request, 'blog/blog.html', { 'posts' : posts })
