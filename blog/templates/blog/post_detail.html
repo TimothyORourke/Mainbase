@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class="card mb-4" style="font-size:1.5em;">
+    <div class="card-body">
+        <p class="card-text">{{ post.text }}</p>
+        <div class="small text-muted">{{ post.author.username }} | {{ post.date_posted }}</div>
+    </div>
+</div>
+
+{% endblock content %}
