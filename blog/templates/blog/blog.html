@@ -2,18 +2,17 @@
 
 {% block content %}
 
-<a href="{% url 'index' %}?sort=latest"><button class="btn btn-primary mb-2" id="button-sort-latest" type="button">Latest</button></a>
-<a href="{% url 'index' %}?sort=oldest"><button class="btn btn-primary mb-2" id="button-sort-oldest" type="button">Oldest</button></a>
-{% for post in posts %}
-    <a href="{% url 'post-detail' pk=post.id %}" style="text-decoration:none;color:inherit;font-size:1.5em">
-        <div class="card mb-4">
+<div class="border border-dark rounded-0">
+    {% for post in posts %}
+        <div class="card border-0 border-bottom border-dark rounded-0" style="font-size:1.5em;cursor:pointer;" 
+            onclick='location.href="{% url 'post-detail' pk=post.id %}";'>
             <div class="card-body">
                 <p class="card-text">{{ post.text }}</p>
-                <a href="/test"><div class="small text-muted">{{ post.author.username }}</a> | {{ post.date_posted }}</div>
+                <div class="small text-muted"><a href="/todo">{{ post.author.username }}</a> | {{ post.date_posted }}</div>
             </div>
         </div>
-    </a>
-{% endfor %}
+    {% endfor %}
+</div>
 
 <!-- Pagination-->
 <nav aria-label="Pagination">
