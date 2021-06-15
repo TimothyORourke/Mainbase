@@ -25,4 +25,5 @@ urlpatterns = [
     path('login/', user_views.login, name='login'),
     path('logout/', user_views.logout, name='logout'),
     path('p/', include('posts.urls')),
+    path('<str:user>', user_views.profile, name='profile'),
 ]

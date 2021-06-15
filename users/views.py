@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -35,3 +36,6 @@ def login(request):
 def logout(request):
     user_logout(request)
     return redirect('index')
+
+def profile(request, user):
+    return HttpResponse("<h1>" + user + "'s Profile Page</h1>")

@@ -2,7 +2,7 @@
     <div class="card border-0" style="font-size:1.5em;">
         <div class="card-body">
             <p class="card-text">{{ post.text }}</p>
-            <div class="small text-muted"><a href="/todo">{{ post.author.username }}</a> | {{ post.date_posted }}</div>
+            <div class="small text-muted"><a href="{% url 'profile' user=post.author.username %}">{{ post.author.username }}</a> | {{ post.date_posted }}</div>
         </div>
     </div>
 </div>
