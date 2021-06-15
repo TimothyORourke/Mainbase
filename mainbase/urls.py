@@ -24,4 +24,5 @@ urlpatterns = [
     path('signup/', user_views.signup, name='signup'),
     path('login/', user_views.login, name='login'),
     path('logout/', user_views.logout, name='logout'),
+    path('p/', include('posts.urls')),
 ]
