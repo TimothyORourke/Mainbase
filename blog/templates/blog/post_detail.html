@@ -3,12 +3,7 @@
 {% block content %}
 
 <div class="border border-dark rounded-0">
-    <div class="card border-0" style="font-size:1.5em;">
-        <div class="card-body">
-            <p class="card-text">{{ post.text }}</p>
-            <div class="small text-muted"><a href="/todo">{{ post.author.username }}</a> | {{ post.date_posted }}</div>
-        </div>
-    </div>
+    {% include 'blog/post.html' %}
 </div>
 
 {% endblock content %}

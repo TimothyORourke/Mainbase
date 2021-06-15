@@ -1,9 +1,7 @@
-{% extends 'blog/base.html' %}
-
 {% block content %}
 
 <h1>Signup</h1>
-<form class='requires-validation' action={% url 'signup' %} method='post' novalidate>
+<form class='requires-validation' action="{% url 'signup' %}?{{ request.GET.urlencode }}" method='post' novalidate>
 {% csrf_token %}
 {{ form.as_p }}
 <button class='btn btn-primary' type='submit'>Signup</button>
