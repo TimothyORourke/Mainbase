@@ -1,3 +1,6 @@
+from users.models import Profile
+from django.contrib.auth.models import User
+from posts.models import Post
 from django.contrib.auth import authenticate
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
@@ -38,4 +41,8 @@ def logout(request):
     return redirect('index')
 
 def profile(request, user):
-    return HttpResponse("<h1>" + user + "'s Profile Page</h1>")
+    user = User.objects.get(username=user)
+    profile = Profile.objects.get(user=user)
+    posts = Post.objects.filter(author=user)
+    return render(request, 'users/profile.html', { 'profile' : profile, 'posts' : posts })
+    # return HttpResponse("<h1>" + user + "'s Profile Page</h1>")

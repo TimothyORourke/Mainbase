@@ -21,6 +21,10 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
                         {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' user=user.username %}">{{ user.username }}</a></li>
+                        {% if user.is_superuser %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Signup</a></li>
@@ -30,7 +34,7 @@
                 </div>
             </div>
         </nav>
-        <!-- Page header with logo and tagline-->
+        <!-- 
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-0">
@@ -39,10 +43,11 @@
                 </div>
             </div>
         </header>
+        -->
         <!-- Page content-->
-        <div class="container">
+        <div class="container my-3">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-9 m-0">
                     {% block content %}{% endblock content %}
                 </div>
                 <div class="col-lg-3">
