@@ -1,4 +1,8 @@
+# Directories
 .vscode/
 venv/
+media/
+
+# Database
 db.sqlite3
 __pycache__

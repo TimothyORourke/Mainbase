@@ -1,0 +1,21 @@
+.post {
+    font-size: 1.3em;
+}
+
+div.post:hover {
+    background-color: #eee;
+}
+
+hr {
+    padding: 0;
+    margin: 0;
+}
+
+div.post a {
+    color: inherit;
+    text-decoration: none;
+}
+
+div.post a:hover {
+    text-decoration-line: underline;
+}
