@@ -2,6 +2,9 @@
     {% for post in posts %}
     <div style="cursor:pointer;" onclick='location.href="{% url 'post-detail' pk=post.id %}";'>
         {% include 'posts/post.html' %}
+        {% if not forloop.last %}
+        <hr>
+        {% endif %}
     </div>
     {% endfor %}
 </div>
