@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg">
+    <button class="navbar-toggler border border-dark" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" 
+            aria-label="Toggle navigation">
+            <div><i class="fas fa-bars fa-2x" style="color:#333;"></i></div>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-collapsible">
+        <ul class="navbar-nav flex-column mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+            {% if user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'profile' user=user.username %}">Profile</a></li>
+            {% if user.is_superuser %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+            {% endif %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Signup</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
