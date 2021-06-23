@@ -11,6 +11,7 @@ from .models import Post
 class PostDetailView(DetailView):
     model = Post
 
+'''
 class PostCreateView(CreateView):
     model = Post
     fields = ('text',)
@@ -20,3 +21,4 @@ class PostCreateView(CreateView):
         post.author = self.request.user
         post.save()
         return JsonResponse({ 'post' : model_to_dict(post) })
+'''
