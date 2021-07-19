@@ -45,4 +45,3 @@ def profile(request, user):
     profile = Profile.objects.get(user=user)
     posts = Post.objects.filter(author=user)
     return render(request, 'users/profile.html', { 'profile' : profile, 'posts' : posts })
-    # return HttpResponse("<h1>" + user + "'s Profile Page</h1>")

@@ -1,6 +1,6 @@
-from django.views.generic import CreateView, DetailView
+from django.views.generic import DetailView
 from django.http import JsonResponse
-from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 
@@ -11,14 +11,12 @@ from .models import Post
 class PostDetailView(DetailView):
     model = Post
 
-'''
-class PostCreateView(CreateView):
-    model = Post
-    fields = ('text',)
-
-    def form_valid(self, form):
-        post = form.save(commit=False)
-        post.author = self.request.user
-        post.save()
-        return JsonResponse({ 'post' : model_to_dict(post) })
-'''
+@login_required
+def delete(request, pk):
+    if request.method == 'DELETE':
+        post = Post.objects.get(pk=pk)
+        if post.author == request.user:
+            post.delete()
+            return JsonResponse({'message': 'Post successfully deleted.'})
+            
+    return JsonResponse({}, status=403)
