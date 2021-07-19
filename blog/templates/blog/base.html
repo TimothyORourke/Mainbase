@@ -18,7 +18,7 @@
         <div class="container-fluid mx-0">
             {% include 'blog/navbar.html' %}
             <div class="row border-top border-dark">
-                <div class="col-lg-3 m-0 position-sticky top-0" style="max-height: 100vh;">
+                <div class="d-none d-lg-block col-lg-3 m-0 position-sticky top-0" style="max-height: 100vh;">
                     <div class="border border-dark mt-3 mb-4">
                         <div class=""><img class="w-100" src="media/total-solar-eclipse-of-aug-21-2017-3840x2160-great-american-eclipse-4k-15392.jpg"></div>
                         <img src="{% static 'blog/favicon.ico' %}">
@@ -30,7 +30,7 @@
                 <div class="col-lg-6 m-0">
                     {% block content %}{% endblock content %}
                 </div>
-                <div class="col-lg-3 position-sticky top-0" style="max-height: 100vh;">
+                <div class="d-none d-lg-block col-lg-3 position-sticky top-0" style="max-height: 100vh;">
                     <div class="border border-dark mt-3 mb-4">
                         <div class="card-header">Who to follow</div>
                         <div class="card-body">
