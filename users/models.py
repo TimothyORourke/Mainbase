@@ -29,7 +29,7 @@ class Follow(models.Model):
     date_followed = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"{self.user.username} follows {self.follows.username}"
+        return f"{self.follower.username} follows {self.followee.username}"
 
 class UserFunctions():
 

@@ -39,7 +39,8 @@
                                 <img class="border border-5 border-dark rounded-circle" style="margin-top:-12.5%;" 
                                     src="{{ user.profile.profile_pic.url }}" width="25%" height="25%" />
                                 {% else %}
-                                <img src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" 
+                                <img class="border border-5 border-dark rounded-circle" 
+                                    src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" 
                                     style="margin-top:-12.5%;" width="25%" height="25%" />
                                 {% endif %}
                             </div>
@@ -61,12 +62,10 @@
                     <div class="border border-dark mt-3 mb-4">
                         <div class="card-header">Who to follow</div>
                         <div class="card-body">
-                            
+                            {% for user in follow_suggestions %}
+                                {% include 'blog/follow_card.html' %}
+                            {% endfor %}
                         </div>
-                    </div>
-                    <div class="w-100 mt-1">
-                        <a href="{% url 'index' %}?sort=latest"><button class="btn btn-primary mb-2" id="button-sort-latest" type="button">Latest</button></a>
-                        <a href="{% url 'index' %}?sort=oldest"><button class="btn btn-primary mb-2" id="button-sort-oldest" type="button">Oldest</button></a>
                     </div>
                 </div>
             </div>
@@ -77,6 +76,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
         <!-- Project JavaScript -->
+        <script src="{% static 'blog/blog.js' %}"></script>
         <script src="{% static 'posts/posts.js' %}"></script>
 
         <script>
