@@ -1,21 +1,16 @@
-.post {
+.post-wrapper {
     font-size: 1.3em;
 }
 
-div.post:hover {
+div.post-wrapper:hover {
     background-color: #eee;
 }
 
-hr {
-    padding: 0;
-    margin: 0;
-}
-
-div.post a {
+div.post-wrapper a {
     color: inherit;
     text-decoration: none;
 }
 
-div.post a:hover {
+div.post-wrapper a:hover {
     text-decoration-line: underline;
 }

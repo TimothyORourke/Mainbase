@@ -43,5 +43,5 @@ def logout(request):
 def profile(request, user):
     user = User.objects.get(username=user)
     profile = Profile.objects.get(user=user)
-    posts = Post.objects.filter(author=user)
+    posts = Post.objects.filter(author=user).order_by('-date_posted')
     return render(request, 'users/profile.html', { 'profile' : profile, 'posts' : posts })

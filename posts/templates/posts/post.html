@@ -6,7 +6,7 @@
             </div>
             <div class="ms-auto">
                 {% if request.user == post.author %}
-                <button class="btn btn-danger post-delete-button mb-1" data-pk="{{ post.pk }}">Delete</button>
+                <button class="btn btn-outline-danger post-delete-button mb-1" data-bs-toggle="modal" data-bs-target="#postDeleteModal" data-pk="{{ post.pk }}">Delete</button>
                 {% endif %}
             </div>
         </div>

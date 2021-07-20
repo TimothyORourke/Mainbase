@@ -2,6 +2,14 @@ $('.post-delete-button').on('click', (e) => {
     e.stopPropagation();
 
     const pk = $(e.target).attr('data-pk');
+    $('#postDeleteModalButton').attr('data-pk', pk);
+});
+
+$('#postDeleteModalButton').on('click', (e) => {
+    e.stopPropagation();
+
+    const pk = $(e.target).attr('data-pk');
+    console.log(pk);
     $.ajax({
         url: `p/${pk}/delete`,
         type: 'DELETE',
@@ -10,7 +18,8 @@ $('.post-delete-button').on('click', (e) => {
             'X-CSRFToken': getCookie('csrftoken')
         },
         success: () => {
-            $(e.target).closest('.post').remove();
+            $(`button[data-pk=${pk}]`).closest('.post-wrapper').remove();
+            $('#postDeleteModal').modal('toggle');
         }
     });
 });
