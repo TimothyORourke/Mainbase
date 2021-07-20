@@ -1,15 +1,28 @@
 <div class="post">
-    <div class="card-body">
-        <div class="d-flex justify-content-left align-items-center">
-            <div class="small text-muted text-end"><a href="{% url 'profile' user=post.author.username %}">
-                {{ post.author.username }}</a> | {{ post.date_posted }}
-            </div>
-            <div class="ms-auto">
-                {% if request.user == post.author %}
-                <button class="btn btn-outline-danger post-delete-button mb-1" data-bs-toggle="modal" data-bs-target="#postDeleteModal" data-pk="{{ post.pk }}">Delete</button>
-                {% endif %}
-            </div>
+    <div class="card-body d-flex">
+        <div class="">
+            <a href="{% url 'profile' user=post.author.username %}">
+            {% if post.author.profile.profile_pic %}
+            <img class="border border-5 border-dark rounded-circle" style="" 
+                src="{{ post.author.profile.profile_pic.url }}" width="60rem" height="60rem" />
+            {% else %}
+            <img src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" 
+                style="" width="60rem" height="60rem" />
+            {% endif %}
+            </a>
         </div>
-        <p class="card-text">{{ post.text }}</p>
+        <div class="flex-fill ms-3">
+            <div class="d-flex justify-content-left align-items-center">
+                <div class="small text-muted text-end"><a href="{% url 'profile' user=post.author.username %}">
+                    {{ post.author.username }}</a> | {{ post.date_posted }}
+                </div>
+                <div class="ms-auto">
+                    {% if request.user == post.author %}
+                    <button class="btn btn-outline-danger post-delete-button mb-1" data-bs-toggle="modal" data-bs-target="#postDeleteModal" data-pk="{{ post.pk }}">Delete</button>
+                    {% endif %}
+                </div>
+            </div>
+            <p class="card-text">{{ post.text }}</p>
+        </div>
     </div>
 </div>

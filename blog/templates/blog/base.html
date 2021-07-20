@@ -6,30 +6,57 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Mainbase</title>
+
         {% load static %}
-        <link rel="icon" type="image/x-icon" href="{% static 'blog/favicon.ico' %}" />
+        <!-- External Styles -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/8e9ee768a6.js" crossorigin="anonymous"></script>
+
+        <!-- Project Styles -->
+        <link rel="icon" type="image/x-icon" href="{% static 'blog/favicon.ico' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'blog/blog.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'posts/posts.css' %}">
         {% block css %}{% endblock css %}
     </head>
     <body>
+        <!-- Root Container -->
         <div class="container-fluid mx-0">
-            {% include 'blog/navbar.html' %}
+            <div class="navbar-wrapper">
+                {% include 'blog/navbar.html' %}
+            </div>
             <div class="row border-top border-dark">
+                <!-- Left Sidebar -->
                 <div class="d-none d-lg-block col-lg-3 m-0 position-sticky top-0" style="max-height: 100vh;">
                     <div class="border border-dark mt-3 mb-4">
-                        <div class=""><img class="w-100" src="media/total-solar-eclipse-of-aug-21-2017-3840x2160-great-american-eclipse-4k-15392.jpg"></div>
-                        <img src="{% static 'blog/favicon.ico' %}">
-                        <div class="card-body">
-                            Profile info
+                        {% if user.profile.profile_banner %}
+                        <img class="w-100" src="{{ user.profile.profile_banner.url }}" />
+                        {% else %}
+                        <img class="w-100" src="media/total-solar-eclipse-of-aug-21-2017-3840x2160-great-american-eclipse-4k-15392.jpg">
+                        {% endif %}
+                        <div class="p-3 pt-0">
+                            <div>
+                                {% if user.profile.profile_pic %}
+                                <img class="border border-5 border-dark rounded-circle" style="margin-top:-12.5%;" 
+                                    src="{{ user.profile.profile_pic.url }}" width="25%" height="25%" />
+                                {% else %}
+                                <img src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" 
+                                    style="margin-top:-12.5%;" width="25%" height="25%" />
+                                {% endif %}
+                            </div>
+                            <div class="">
+                                <h2 class="fw-bold">{{ user.username }}</h2>
+                                <span class="">{{ user.profile.bio }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Main Content -->
                 <div class="col-lg-6 m-0">
                     {% block content %}{% endblock content %}
                 </div>
+
+                <!-- Right Sidebar -->
                 <div class="d-none d-lg-block col-lg-3 position-sticky top-0" style="max-height: 100vh;">
                     <div class="border border-dark mt-3 mb-4">
                         <div class="card-header">Who to follow</div>
@@ -45,9 +72,11 @@
             </div>
         </div>
         
+        <!-- JavaScript Libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
+        <!-- Project JavaScript -->
         <script src="{% static 'posts/posts.js' %}"></script>
 
         <script>

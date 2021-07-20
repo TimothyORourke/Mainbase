@@ -9,6 +9,6 @@ class PostForm(forms.ModelForm):
     
     text = forms.CharField(label="", widget=forms.Textarea(attrs={
         "rows":4, 
-        "style" : "resize:none;width:100%;", 
+        "style" : "resize:none;width:100%;padding:1%;", 
         "placeholder" : "Post something..."}
     ))
