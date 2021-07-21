@@ -7,17 +7,17 @@
         {% if profile.profile_banner %}
         <img class="w-100" src="{{ profile.profile_banner.url }}" />
         {% else %}
-        <img src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" width="100%" height="150" />
+        <img class="w-100" src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" />
         {% endif %}
     </div>
     <div class="p-3 pt-0">
-        <div class="d-flex position-static">
+        <div class="d-flex">
             {% if profile.profile_pic %}
-            <img class="border border-5 border-dark rounded-circle" style="margin-top:-12.5%;" 
-                src="{{ profile.profile_pic.url }}" width="25%" height="25%" />
+            <img class="border border-5 border-dark rounded-circle profile-card-img" 
+                src="{{ profile.profile_pic.url }}" />
             {% else %}
-            <img src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" 
-                style="margin-top:-12.5%;" width="25%" height="25%" />
+            <img class="border border-5 border-dark rounded-circle profile-card-img"
+                src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" />
             {% endif %}
             {% if profile.user == user %}
             <div class="ms-auto mt-3">
@@ -25,9 +25,9 @@
             </div>
             {% endif %}
         </div>
-        <div class="">
+        <div>
             <h1 class="fw-bold">{{ profile.user.username }}</h1>
-            <span class=""">{{ profile.bio }}</span>
+            <span>{{ profile.bio }}</span>
         </div>
     </div>
     {% if profile.user == user %}

@@ -1,9 +1,9 @@
-from django.db import models
-
 from django.contrib.auth import get_user_model
 from django.db.models.deletion import CASCADE
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.db import models
+
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -32,7 +32,6 @@ class Follow(models.Model):
         return f"{self.follower.username} follows {self.followee.username}"
 
 class UserFunctions():
-
     def is_following(self, user):
         return len(self.follower.filter(followee=user)) > 0
 

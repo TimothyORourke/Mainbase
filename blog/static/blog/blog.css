@@ -1,13 +1,26 @@
-.navbar-nav {
-}
-
 a.nav-link {
     color: inherit;
     text-align: center;
 }
 
 a.nav-link:hover, a.active {
-    color: tomato;
-    text-decoration: underline;
-    text-decoration-color: tomato;
+    color: #fe5555;
+}
+
+img.profile-card-img {
+    margin-top: -12.5%;
+    width: 25%;
+    height: 25%;
+}
+
+img.follow-card-img {
+    width: 4rem;
+    height: 4rem;
+}
+
+div.follow-card-username {
+    max-width: 10rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

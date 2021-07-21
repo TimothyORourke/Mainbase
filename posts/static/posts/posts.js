@@ -9,17 +9,22 @@ $('#postDeleteModalButton').on('click', (e) => {
     e.stopPropagation();
 
     const pk = $(e.target).attr('data-pk');
-    console.log(pk);
     $.ajax({
-        url: `p/${pk}/delete`,
+        url: `/p/${pk}/delete`,
         type: 'DELETE',
         dataType: 'json',
         headers: {
             'X-CSRFToken': getCookie('csrftoken')
         },
         success: () => {
-            $(`button[data-pk=${pk}]`).closest('.post-wrapper').remove();
-            $('#postDeleteModal').modal('toggle');
+            // Return to index of the site if deleting from detail view.
+            if (location.pathname.substring(0, 3) === '/p/') {
+                location.href = '/';
+            }
+            else {
+                $(`button[data-pk=${pk}]`).closest('.post-wrapper').remove();
+                $('#postDeleteModal').modal('toggle');
+            }
         }
     });
 });

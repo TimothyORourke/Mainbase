@@ -6,10 +6,17 @@ from django.shortcuts import render
 
 from .models import Post
 
+from blog.views import get_follow_suggestions
+
 # Create your views here.
 
 class PostDetailView(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['follow_suggestions'] = get_follow_suggestions(self.request)
+        return context
 
 @login_required
 def delete(request, pk):

@@ -6,7 +6,6 @@ from .models import Follow
 # Create your tests here.
 
 class UserTestCase(TestCase):
-    
     def test_is_following(self):
         user1 = User.objects.create(username="user1")
         user2 = User.objects.create(username="user2")
@@ -41,7 +40,6 @@ class UserTestCase(TestCase):
         self.assertFalse(user1.is_following(user2))
 
 class FollowTestCase(TestCase):
-
     def test_neither_user_follows(self):
         user1 = User.objects.create(username="user1")
         user2 = User.objects.create(username="user2")

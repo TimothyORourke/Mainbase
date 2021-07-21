@@ -14,6 +14,7 @@ def index(request):
     posts = []
     follow_suggestions = get_follow_suggestions(request)
 
+    # Sort posts by newest by default.
     if sort == 'latest':
         posts = Post.objects.all().order_by('-date_posted')
     else:
@@ -24,7 +25,7 @@ def index(request):
         if (not post.author == request.user) and (not request.user.is_following(post.author)):
             posts = posts.exclude(author=post.author)
 
-    form = PostForm(auto_id=False)
+    form = PostForm()
 
     if request.POST:
         temp = PostForm(request.POST)

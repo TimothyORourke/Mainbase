@@ -1,0 +1,26 @@
+<div class="border border-dark mt-3">
+    <div>
+        {% if user.profile.profile_banner %}
+        <img class="w-100" src="{{ user.profile.profile_banner.url }}" />
+        {% else %}
+        <img class="w-100" src="media/total-solar-eclipse-of-aug-21-2017-3840x2160-great-american-eclipse-4k-15392.jpg">
+        {% endif %}
+    </div>
+    <div class="p-3 pt-0">
+        <div>
+            <a href="{% url 'profile' user=user.username %}">
+                {% if user.profile.profile_pic %}
+                <img class="border border-3 border-dark rounded-circle profile-card-img"
+                    src="{{ user.profile.profile_pic.url }}" />
+                {% else %}
+                <img class="border border-3 border-dark rounded-circle profile-card-img" 
+                    src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" />
+                {% endif %}
+            </a>
+        </div>
+        <div>
+            <h2 class="fw-bold">{{ user.username }}</h2>
+            <span>{{ user.profile.bio }}</span>
+        </div>
+    </div>
+</div>

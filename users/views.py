@@ -1,16 +1,17 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.contrib.auth import login as user_login
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout as user_logout
 
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .forms import ProfileForm
 
-from blog.views import get_follow_suggestions
-
+from django.contrib.auth.models import User
 from posts.models import Post
 from .models import Profile
-from .forms import ProfileForm
+
+from blog.views import get_follow_suggestions
 
 # Create your views here.
 
@@ -42,6 +43,7 @@ def logout(request):
     user_logout(request)
     return redirect('index')
 
+@login_required
 def profile(request, user):
     user = User.objects.get(username=user)
     profile = Profile.objects.get(user=user)
