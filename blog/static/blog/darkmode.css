@@ -1,0 +1,12 @@
+/*
+    These styles are used to change the page style to a dark mode.
+*/
+body, textarea, .modal-content, .modal-header, .modal-footer {
+    color: white;
+    background-color: black;
+    border-color: #212529;
+}
+
+.bg-light, .card-header {
+    background-color: #111!important;
+}

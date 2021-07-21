@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'blog/blog.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'posts/posts.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'users/users.css' %}">
+        <link id="darkmode" rel="stylesheet" href="{% static 'blog/darkmode.css' %}" {% if not user_pref.darkmode %}disabled{% endif %}>
         {% block css %}{% endblock css %}
     </head>
     <body>
@@ -39,6 +40,9 @@
                 <!-- Right Sidebar -->
                 <div class="d-none d-lg-block col-lg-3 position-sticky top-0" style="max-height: 100vh;">
                     {% include 'blog/follow_widget.html' %}
+                    <div class="d-flex justify-content-center p-3">
+                        <button class="btn btn-outline-secondary darkmode-button">Darkmode Toggle</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ $(document).ready( () => {
 
 $('.follow-button').on('click', onFollowButtonClicked);
 $('.unfollow-button').on('click', onUnfollowButtonClicked);
+$('.darkmode-button').on('click', onDarkmodeButtonClicked);
 
 function toggleFollowButtonType(button) {
     let isFollowButton = button.hasClass('follow-button');
@@ -57,6 +58,24 @@ function onUnfollowButtonClicked(e) {
         },
         success: () => {
             toggleFollowButtonType($(`button[data-username=${username}]`));
+        }
+    });
+}
+
+function onDarkmodeButtonClicked(e) {
+    $('#darkmode').prop('disabled', (i, v) => !v);
+
+    $.ajax({
+        url: '/users/settings/',
+        type: 'PUT',
+        data: {
+            darkmode: !$('#darkmode').prop('disabled')
+        },
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        success: (res) => {
+            console.log("Website theme toggled.");
         }
     });
 }

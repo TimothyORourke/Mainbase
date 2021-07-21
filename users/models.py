@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+        UserPreferences.objects.create(user=instance)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -30,6 +31,13 @@ class Follow(models.Model):
 
     def __str__(self) -> str:
         return f"{self.follower.username} follows {self.followee.username}"
+
+class UserPreferences(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    darkmode = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f"{self.user.username}'s preferences"
 
 class UserFunctions():
     def is_following(self, user):

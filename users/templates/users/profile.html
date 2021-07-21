@@ -19,20 +19,18 @@
             <img class="border border-5 border-dark rounded-circle profile-card-img"
                 src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" />
             {% endif %}
-            {% if profile.user == user %}
             <div class="ms-auto mt-3">
-                <button class="btn btn-secondary profile-edit-button">Edit</button>
-            </div>
-            {% endif %}
-            {% if following %}
-            <div class="ms-auto mt-3">
+                {% if user == profile.user %}
+                <button class="btn btn-outline-secondary profile-edit-button">Edit</button>
+                {% endif %}
+                {% if user != profile.user %}
+                {% if following %}
                 <button class="btn btn-outline-danger unfollow-button" data-username="{{ profile.user.username }}">Unfollow</button>
-            </div>
-            {% else %}
-            <div class="ms-auto mt-3">
+                {% else %}
                 <button class="btn btn-outline-primary follow-button" data-username="{{ profile.user.username }}">Follow</button>
+                {% endif %}
+                {% endif %}
             </div>
-            {% endif %}
         </div>
         <div>
             <h1 class="fw-bold">{{ profile.user.username }}</h1>

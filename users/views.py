@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http.request import QueryDict
 from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import login as user_login
@@ -12,7 +13,7 @@ from .forms import ProfileForm
 
 from django.contrib.auth.models import User
 from posts.models import Post
-from .models import Follow, Profile
+from .models import Follow, Profile, UserPreferences
 
 from blog.views import get_follow_suggestions
 
@@ -51,7 +52,11 @@ def profile(request, user):
     user = User.objects.get(username=user)
     profile = Profile.objects.get(user=user)
     posts = Post.objects.filter(author=user).order_by('-date_posted')
-    following = Follow.objects.filter(follower=request.user, followee=user).first()
+
+    try:
+        following = Follow.objects.get(follower=request.user, followee=user)
+    except Follow.DoesNotExist:
+        following = None
 
     follow_suggestions = get_follow_suggestions(request)
 
@@ -95,5 +100,17 @@ def follow_api(request, username):
         follow_obj.delete()
 
         return JsonResponse({}, status=200)
+
+    return JsonResponse({}, status=405)
+
+@login_required
+def settings_api(request):
+    if request.method == 'PUT':
+        darkmode = True if (QueryDict(request.body).get('darkmode') == 'true') else False
+        userpreferences = UserPreferences.objects.get(user=request.user)
+        userpreferences.darkmode = darkmode
+        userpreferences.save()
+
+        return JsonResponse({'user': request.user.username, 'darkmode': userpreferences.darkmode}, status=201)
 
     return JsonResponse({}, status=405)

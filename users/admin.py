@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.decorators import register
 
-from .models import Profile, Follow
+from .models import Profile, Follow, UserPreferences
 
 # Register your models here.
 
@@ -11,4 +11,8 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @register(Follow)
 class FollowAdmin(admin.ModelAdmin):
+    pass
+
+@register(UserPreferences)
+class UserPreferencesAdmin(admin.ModelAdmin):
     pass
