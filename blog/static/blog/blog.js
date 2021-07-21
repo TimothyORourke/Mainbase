@@ -3,7 +3,27 @@ $(document).ready( () => {
     $('a.nav-link[href="' + location.pathname + '"]').addClass('active'); 
 });
 
-$('.follow-button').on('click', (e) => {
+$('.follow-button').on('click', onFollowButtonClicked);
+$('.unfollow-button').on('click', onUnfollowButtonClicked);
+
+function toggleFollowButtonType(button) {
+    let isFollowButton = button.hasClass('follow-button');
+    console.log(button);
+    button.toggleClass('follow-button unfollow-button');
+    button.toggleClass('btn-outline-primary btn-outline-danger');
+    button.off('click');
+
+    if (isFollowButton) {
+        button.on('click', onUnfollowButtonClicked);
+        button.text('Unfollow');
+    }
+    else {
+        button.on('click', onFollowButtonClicked);
+        button.text('Follow');
+    }
+}
+
+function onFollowButtonClicked(e) {
     const username = $(e.target).attr('data-username');
 
     $.ajax({
@@ -16,13 +36,13 @@ $('.follow-button').on('click', (e) => {
         headers: {
             'X-CSRFToken': getCookie('csrftoken')
         },
-        success: (res) => {
-            $(`button[data-username=${username}]`).closest('.follow-card').remove();
+        success: () => {
+            toggleFollowButtonType($(`button[data-username=${username}]`));
         }
     });
-});
+}
 
-$('.unfollow-button').on('click', (e) => {
+function onUnfollowButtonClicked(e) {
     const username = $(e.target).attr('data-username');
 
     $.ajax({
@@ -35,9 +55,8 @@ $('.unfollow-button').on('click', (e) => {
         headers: {
             'X-CSRFToken': getCookie('csrftoken')
         },
-        success: (res) => {
-            console.log(res);
-            $(`button[data-username=${username}]`).remove();
+        success: () => {
+            toggleFollowButtonType($(`button[data-username=${username}]`));
         }
     });
-});
+}
