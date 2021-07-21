@@ -1,15 +1,18 @@
 from django.contrib.auth.decorators import login_required
+from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import login as user_login
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout as user_logout
+from django.core import serializers
+from django.forms.models import model_to_dict
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import ProfileForm
 
 from django.contrib.auth.models import User
 from posts.models import Post
-from .models import Profile
+from .models import Follow, Profile
 
 from blog.views import get_follow_suggestions
 
@@ -48,6 +51,7 @@ def profile(request, user):
     user = User.objects.get(username=user)
     profile = Profile.objects.get(user=user)
     posts = Post.objects.filter(author=user).order_by('-date_posted')
+    following = Follow.objects.filter(follower=request.user, followee=user).first()
 
     follow_suggestions = get_follow_suggestions(request)
 
@@ -71,9 +75,25 @@ def profile(request, user):
 
     return render(request, 'users/profile.html', { 
         'profile' : profile, 'posts' : posts, 'profile_form' : profile_form,
-        'follow_suggestions' : follow_suggestions
+        'follow_suggestions' : follow_suggestions, 'following' : following
         })
 
 def resize_image(image, **kwargs):
     max_width = kwargs.get('max_width', 1080)
     pass
+
+@login_required
+def follow_api(request, username):
+    followee = User.objects.get(username=username)
+    if request.method == 'PUT':
+        follow_obj = Follow.objects.create(follower=request.user, followee=followee)
+
+        return JsonResponse({'follower': request.user.username, 'followee': followee.username}, status=201)
+
+    if request.method == 'DELETE':
+        follow_obj = Follow.objects.get(follower=request.user, followee=followee)
+        follow_obj.delete()
+
+        return JsonResponse({}, status=200)
+
+    return JsonResponse({}, status=405)

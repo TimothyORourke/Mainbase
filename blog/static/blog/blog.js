@@ -4,6 +4,40 @@ $(document).ready( () => {
 });
 
 $('.follow-button').on('click', (e) => {
-    const followeeName = $(e.target).attr('data-followee');
-    console.log(`Followee: ${followeeName}`);
+    const username = $(e.target).attr('data-username');
+
+    $.ajax({
+        url: `/users/follow/${username}`,
+        type: 'PUT',
+        dataType: 'json',
+        data: {
+            username: username,
+        },
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        success: (res) => {
+            $(`button[data-username=${username}]`).closest('.follow-card').remove();
+        }
+    });
+});
+
+$('.unfollow-button').on('click', (e) => {
+    const username = $(e.target).attr('data-username');
+
+    $.ajax({
+        url: `/users/follow/${username}`,
+        type: 'DELETE',
+        dataType: 'json',
+        data: {
+            username: username,
+        },
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        success: (res) => {
+            console.log(res);
+            $(`button[data-username=${username}]`).remove();
+        }
+    });
 });

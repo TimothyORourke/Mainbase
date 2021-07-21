@@ -24,6 +24,11 @@
                 <button class="btn btn-secondary profile-edit-button">Edit</button>
             </div>
             {% endif %}
+            {% if following %}
+            <div class="ms-auto mt-3">
+                <button class="btn btn-outline-danger unfollow-button" data-username="{{ profile.user.username }}">Unfollow</button>
+            </div>
+            {% endif %}
         </div>
         <div>
             <h1 class="fw-bold">{{ profile.user.username }}</h1>
