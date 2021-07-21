@@ -12,7 +12,7 @@ def uuid_hex():
 
 class Post(models.Model):
     id = models.CharField(primary_key=True, max_length=32, editable=False, default=uuid_hex)
-    text = models.TextField(max_length=280)
+    text = models.CharField(max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now=False, auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True, auto_now_add=False)

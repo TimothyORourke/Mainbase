@@ -18,7 +18,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(null=True, blank=True)
     profile_banner = models.ImageField(null=True, blank=True)
-    bio = models.TextField(max_length=280)
+    bio = models.TextField(blank=True, max_length=280)
 
     def __str__(self) -> str:
         return f"{self.user.username}'s profile"

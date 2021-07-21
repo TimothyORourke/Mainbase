@@ -1,14 +1,16 @@
-from users.models import Profile
-from django.contrib.auth.models import User
-from posts.models import Post
-from django.contrib.auth import authenticate
-from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as user_login
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout as user_logout
+
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
+from blog.views import get_follow_suggestions
+
+from posts.models import Post
+from .models import Profile
+from .forms import ProfileForm
 
 # Create your views here.
 
@@ -44,4 +46,32 @@ def profile(request, user):
     user = User.objects.get(username=user)
     profile = Profile.objects.get(user=user)
     posts = Post.objects.filter(author=user).order_by('-date_posted')
-    return render(request, 'users/profile.html', { 'profile' : profile, 'posts' : posts })
+
+    follow_suggestions = get_follow_suggestions(request)
+
+    # Form for updating profile attributes. ex. Profile Picture
+    profile_form = None
+    if user == request.user:
+        profile_form = ProfileForm(initial={'bio' : profile.bio})
+
+        if request.POST:
+            temp = ProfileForm(request.POST, request.FILES)
+            if temp.is_valid():
+                if temp.files.get('profile_pic'):
+                    profile.profile_pic = temp.files['profile_pic']
+                if temp.files.get('profile_banner'):
+                    profile.profile_banner = temp.files['profile_banner']
+
+                profile.bio = temp.cleaned_data['bio']
+                profile.save()
+            else:
+                profile_form = temp
+
+    return render(request, 'users/profile.html', { 
+        'profile' : profile, 'posts' : posts, 'profile_form' : profile_form,
+        'follow_suggestions' : follow_suggestions
+        })
+
+def resize_image(image, **kwargs):
+    max_width = kwargs.get('max_width', 1080)
+    pass

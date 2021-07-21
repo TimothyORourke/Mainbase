@@ -19,16 +19,29 @@
             <img src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" 
                 style="margin-top:-12.5%;" width="25%" height="25%" />
             {% endif %}
+            {% if profile.user == user %}
             <div class="ms-auto mt-3">
-                <button class="btn btn-secondary">Edit</button>
+                <button class="btn btn-secondary profile-edit-button">Edit</button>
             </div>
+            {% endif %}
         </div>
         <div class="">
             <h1 class="fw-bold">{{ profile.user.username }}</h1>
             <span class=""">{{ profile.bio }}</span>
         </div>
     </div>
-    {% include 'posts/post_container.html' %}
+    {% if profile.user == user %}
+    <div class="d-none profile-edit-form">
+        <form class="" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            <input class="btn btn-success d-block mt-2" type="submit" value="Save">
+        </form>
+    </div>
+    {% endif %}
+    <div>
+        {% include 'posts/post_container.html' %}
+    </div>
 </div>
 
 {% endblock content %}

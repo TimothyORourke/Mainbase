@@ -35,14 +35,16 @@
                         {% endif %}
                         <div class="p-3 pt-0">
                             <div>
-                                {% if user.profile.profile_pic %}
-                                <img class="border border-5 border-dark rounded-circle" style="margin-top:-12.5%;" 
-                                    src="{{ user.profile.profile_pic.url }}" width="25%" height="25%" />
-                                {% else %}
-                                <img class="border border-5 border-dark rounded-circle" 
-                                    src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" 
-                                    style="margin-top:-12.5%;" width="25%" height="25%" />
-                                {% endif %}
+                                <a href="{% url 'profile' user=user.username %}">
+                                    {% if user.profile.profile_pic %}
+                                    <img class="border border-5 border-dark rounded-circle" style="margin-top:-12.5%;" 
+                                        src="{{ user.profile.profile_pic.url }}" width="25%" height="25%" />
+                                    {% else %}
+                                    <img class="border border-5 border-dark rounded-circle" 
+                                        src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" 
+                                        style="margin-top:-12.5%;" width="25%" height="25%" />
+                                    {% endif %}
+                                </a>
                             </div>
                             <div class="">
                                 <h2 class="fw-bold">{{ user.username }}</h2>
@@ -78,6 +80,7 @@
         <!-- Project JavaScript -->
         <script src="{% static 'blog/blog.js' %}"></script>
         <script src="{% static 'posts/posts.js' %}"></script>
+        <script src="{% static 'users/users.js' %}"></script>
 
         <script>
             $(document).ready( () => {
