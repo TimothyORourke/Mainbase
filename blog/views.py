@@ -25,16 +25,7 @@ def index(request):
         if (not post.author == request.user) and (not request.user.is_following(post.author)):
             posts = posts.exclude(author=post.author)
 
-    form = PostForm()
-
-    if request.POST:
-        temp = PostForm(request.POST)
-        if temp.is_valid():
-            Post.objects.create(author_id=request.user.pk, text=temp.cleaned_data['text'])
-        else:
-            form = temp
-
-    return render(request, 'blog/blog.html', { 'posts' : posts, 'form' : form, 
+    return render(request, 'blog/blog.html', { 'posts' : posts, 
         'follow_suggestions' : follow_suggestions })
 
 def get_follow_suggestions(request):

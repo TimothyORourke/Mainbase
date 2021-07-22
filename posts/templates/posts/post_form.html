@@ -1,7 +1,8 @@
 <div>
-    <form action="" method="post">
+    <form action="{% url 'post-api' %}" method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ post_form }}
+        <input type="hidden" name="next" value="{{ request.path }}">
         <input class="btn btn-primary d-block ms-auto mt-1" type="submit" value="Post">
     </form>
 </div>

@@ -1,9 +1,11 @@
+from django.http.response import HttpResponseRedirect
 from django.views.generic import DetailView
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 
+from posts.forms import PostForm
 from .models import Post
 
 from blog.views import get_follow_suggestions
@@ -27,3 +29,13 @@ def delete(request, pk):
             return JsonResponse({'message': 'Post successfully deleted.'})
             
     return JsonResponse({}, status=403)
+
+@login_required
+def post_api(request):
+    if request.POST:
+        form = PostForm(request.POST)
+        if form.is_valid():
+            Post.objects.create(author_id=request.user.pk, text=form.cleaned_data['text'])
+
+    next = request.POST.get('next', '/')
+    return HttpResponseRedirect(next)
