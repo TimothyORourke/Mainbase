@@ -15,11 +15,19 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
         UserPreferences.objects.create(user=instance)
 
+def profile_pic_path(instance, filename):
+    extension = filename.split('.')[-1]
+    return f'profile_pictures/{instance.user.username}_profile_pic.{extension}'
+
+def profile_banner_path(instance, filename):
+    extension = filename.split('.')[-1]
+    return f'profile_banners/{instance.user.username}_profile_banner.{extension}'
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(null=True, blank=True)
-    profile_banner = models.ImageField(null=True, blank=True)
-    bio = models.TextField(blank=True, max_length=280)
+    profile_pic = models.ImageField(upload_to=profile_pic_path, null=True, blank=True)
+    profile_banner = models.ImageField(upload_to=profile_banner_path, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True, max_length=280)
 
     def __str__(self) -> str:
         return f"{self.user.username}'s profile"

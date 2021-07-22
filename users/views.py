@@ -53,8 +53,8 @@ def profile(request, user):
     profile = Profile.objects.get(user=user)
     posts = Post.objects.filter(author=user).order_by('-date_posted')
     is_following = Follow.objects.filter(follower=request.user) & Follow.objects.filter(followee=user)
-    following = User.objects.filter(id__in=Follow.objects.filter(follower=request.user).values('followee'))
-    followers = User.objects.filter(id__in=Follow.objects.filter(followee=request.user).values('follower'))
+    following = User.objects.filter(id__in=Follow.objects.filter(follower=user).values('followee'))
+    followers = User.objects.filter(id__in=Follow.objects.filter(followee=user).values('follower'))
     follow_suggestions = get_follow_suggestions(request)
 
     # Form for updating profile attributes. ex. Profile Picture
@@ -63,15 +63,9 @@ def profile(request, user):
         profile_form = ProfileForm(initial={'bio' : profile.bio})
 
         if request.POST:
-            temp = ProfileForm(request.POST, request.FILES)
+            temp = ProfileForm(request.POST, request.FILES, instance=profile)
             if temp.is_valid():
-                if temp.files.get('profile_pic'):
-                    profile.profile_pic = temp.files['profile_pic']
-                if temp.files.get('profile_banner'):
-                    profile.profile_banner = temp.files['profile_banner']
-
-                profile.bio = temp.cleaned_data['bio']
-                profile.save()
+                temp.save()
             else:
                 profile_form = temp
 
@@ -80,10 +74,6 @@ def profile(request, user):
         'follow_suggestions' : follow_suggestions, 'is_following' : is_following,
         'following' : following, 'followers' : followers
         })
-
-def resize_image(image, **kwargs):
-    max_width = kwargs.get('max_width', 1080)
-    pass
 
 @login_required
 def follow_api(request, username):
