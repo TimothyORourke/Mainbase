@@ -52,12 +52,9 @@ def profile(request, user):
     user = User.objects.get(username=user)
     profile = Profile.objects.get(user=user)
     posts = Post.objects.filter(author=user).order_by('-date_posted')
-
-    try:
-        following = Follow.objects.get(follower=request.user, followee=user)
-    except Follow.DoesNotExist:
-        following = None
-
+    is_following = Follow.objects.filter(follower=request.user) & Follow.objects.filter(followee=user)
+    following = User.objects.filter(id__in=Follow.objects.filter(follower=request.user).values('followee'))
+    followers = User.objects.filter(id__in=Follow.objects.filter(followee=request.user).values('follower'))
     follow_suggestions = get_follow_suggestions(request)
 
     # Form for updating profile attributes. ex. Profile Picture
@@ -80,7 +77,8 @@ def profile(request, user):
 
     return render(request, 'users/profile.html', { 
         'profile' : profile, 'posts' : posts, 'profile_form' : profile_form,
-        'follow_suggestions' : follow_suggestions, 'following' : following
+        'follow_suggestions' : follow_suggestions, 'is_following' : is_following,
+        'following' : following, 'followers' : followers
         })
 
 def resize_image(image, **kwargs):
@@ -91,7 +89,8 @@ def resize_image(image, **kwargs):
 def follow_api(request, username):
     followee = User.objects.get(username=username)
     if request.method == 'PUT':
-        follow_obj = Follow.objects.create(follower=request.user, followee=followee)
+        if not request.user.is_following(followee):
+            follow_obj = Follow.objects.create(follower=request.user, followee=followee)
 
         return JsonResponse({'follower': request.user.username, 'followee': followee.username}, status=201)
 

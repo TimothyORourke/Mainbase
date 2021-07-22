@@ -1,9 +1,9 @@
-<div class="border border-dark mt-3">
+<div class="border border-dark rounded-3 mt-3">
     <div>
         {% if user.profile.profile_banner %}
-        <img class="w-100" src="{{ user.profile.profile_banner.url }}" />
+        <img class="w-100 rounded-top" src="{{ user.profile.profile_banner.url }}" />
         {% else %}
-        <img class="w-100" src="media/total-solar-eclipse-of-aug-21-2017-3840x2160-great-american-eclipse-4k-15392.jpg">
+        <img class="w-100 rounded-top" src="media/total-solar-eclipse-of-aug-21-2017-3840x2160-great-american-eclipse-4k-15392.jpg">
         {% endif %}
     </div>
     <div class="p-3 pt-0">

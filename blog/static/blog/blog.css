@@ -8,19 +8,25 @@ a.nav-link:hover, a.active {
 }
 
 img.profile-card-img {
-    margin-top: -12.5%;
-    width: 25%;
-    height: 25%;
+    position: relative;
+    margin-top: -17.5%;
+    width: 35%;
+    height: 35%;
 }
 
 img.follow-card-img {
-    width: 4rem;
-    height: 4rem;
+    width: 4vw;
+    height: 4vw;
 }
 
 div.follow-card-username {
-    max-width: 10rem;
+    max-width: 12vw;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 1.5em;
+}
+
+div.follow-card button {
+    font-size: 1.5em;
 }

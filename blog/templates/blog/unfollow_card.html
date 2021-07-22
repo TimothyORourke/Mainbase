@@ -1,0 +1,19 @@
+<div class="follow-card d-flex align-items-center p-1">
+    <div>
+        <a href="{% url 'profile' user=user.username %}">
+            {% if user.profile.profile_pic %}
+            <img class="border border-3 border-dark rounded-circle follow-card-img"
+                src="{{ user.profile.profile_pic.url }}" />
+            {% else %}
+            <img class="border border-3 border-dark rounded-circle follow-card-img" 
+                src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" />
+            {% endif %}
+        </a>
+    </div>
+    <div class="ps-3 pe-3 follow-card-username">
+        <div>{{ user.username }}</div>
+    </div>
+    <div class="ms-auto">
+        <button class="btn btn-outline-danger follow-button" data-username="{{ user.username }}">Unfollow</button>
+    </div>
+</div>

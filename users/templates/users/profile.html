@@ -24,7 +24,7 @@
                 <button class="btn btn-outline-secondary profile-edit-button">Edit</button>
                 {% endif %}
                 {% if user != profile.user %}
-                {% if following %}
+                {% if is_following %}
                 <button class="btn btn-outline-danger unfollow-button" data-username="{{ profile.user.username }}">Unfollow</button>
                 {% else %}
                 <button class="btn btn-outline-primary follow-button" data-username="{{ profile.user.username }}">Follow</button>
@@ -47,7 +47,39 @@
     </div>
     {% endif %}
     <div>
-        {% include 'posts/post_container.html' %}
+        <ul class="nav nav-tabs justify-content-around" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="posts-tab" data-bs-toggle="tab" 
+                data-bs-target="#posts" type="button" role="tab" aria-controls="posts" 
+                aria-selected="true">Home</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="following-tab" data-bs-toggle="tab" 
+                data-bs-target="#following" type="button" role="tab" aria-controls="following" 
+                aria-selected="false">Following</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="followers-tab" data-bs-toggle="tab" 
+                data-bs-target="#followers" type="button" role="tab" aria-controls="followers" 
+                aria-selected="false">Followers</button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+            {% include 'posts/post_container.html' %}
+        </div>
+        <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
+            {% for user in following %}
+                {% include 'blog/unfollow_card.html' %}
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
+            {% for user in followers %}
+                {% include 'blog/follow_card.html' %}
+            {% endfor %}
+        </div>
     </div>
 </div>
 
