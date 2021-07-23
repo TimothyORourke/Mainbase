@@ -1,0 +1,16 @@
+<div class="d-flex align-items-center p-3 user-card">
+    <div>
+        <a href="{% url 'profile' user=user.username %}">
+            {% if user.profile.profile_pic %}
+            <img class="border border-3 border-dark rounded-circle user-card-profile-img"
+                src="{{ user.profile.profile_pic.url }}" />
+            {% else %}
+            <img class="border border-3 border-dark rounded-circle user-card-profile-img" 
+                src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" />
+            {% endif %}
+        </a>
+    </div>
+    <div class="user-card-details text-clip ps-3 pe-3">
+        <div class="user-card-username">{{ user.username }}</div>
+    </div>
+</div>

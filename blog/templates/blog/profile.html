@@ -17,11 +17,12 @@
                 src="{{ profile.profile_pic.url }}" />
             {% else %}
             <img class="border border-5 border-dark rounded-circle profile-card-img"
-                src="https://cdn.kapwing.com/final_5dcc99aba3f32c0013ff8b46_45583.jpg" />
+                src="https://i2.wp.com/cdn.website-editor.net/337bd928b7f54e51813e75f713453762/dms3rep/multi/desktop/blank+employee.png" />
             {% endif %}
             <div class="ms-auto mt-3">
                 {% if user == profile.user %}
-                <button class="btn btn-outline-secondary profile-edit-button">Edit</button>
+                <button class="btn btn-outline-secondary profile-edit-button" data-bs-toggle="modal" data-bs-target="#profileEditModal">Edit</button>
+                {% include 'blog/profile_edit_modal.html' %}
                 {% endif %}
                 {% if user != profile.user %}
                 {% if is_following %}
@@ -37,15 +38,6 @@
             <span>{{ profile.bio }}</span>
         </div>
     </div>
-    {% if profile.user == user %}
-    <div class="d-none profile-edit-form">
-        <form class="" action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ profile_form.as_p }}
-            <input class="btn btn-success d-block mt-2" type="submit" value="Save">
-        </form>
-    </div>
-    {% endif %}
     <div>
         <ul class="nav nav-tabs justify-content-around" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -71,14 +63,26 @@
             {% include 'posts/post_container.html' %}
         </div>
         <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
-            {% for user in following %}
-                {% include 'blog/unfollow_card.html' %}
-            {% endfor %}
+            <div class="border-top border-dark">
+                {% for user in following %}
+                    {% include 'blog/unfollow_card.html' %}
+                    <div class="border-bottom border-dark"></div>
+                {% endfor %}
+                <div class="border-bottom border-dark container-spacer"></div>
+            </div>
         </div>
         <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">
-            {% for user in followers %}
-                {% include 'blog/follow_card.html' %}
-            {% endfor %}
+            <div class="border-top border-dark">
+                {% for user in followers %}
+                    {% if user in following %}
+                    {% include 'blog/unfollow_card.html' %}
+                    {% else %}
+                    {% include 'blog/follow_card.html' %}
+                    {% endif %}
+                    <div class="border-bottom border-dark"></div>
+                {% endfor %}
+                <div class="border-bottom border-dark container-spacer"></div>
+            </div>
         </div>
     </div>
 </div>

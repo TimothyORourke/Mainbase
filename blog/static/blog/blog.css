@@ -1,3 +1,20 @@
+body {
+    font-family: Roboto, serif;
+}
+
+.position-sticky {
+    z-index: 1;
+}
+
+.modal-backdrop {
+    z-index: 0;
+}
+
+.container-spacer {
+    min-height: 40rem;
+}
+
+/* ---------- Navigation tabs ----------*/
 a.nav-link {
     color: inherit;
     text-align: center;
@@ -7,6 +24,20 @@ a.nav-link:hover, a.active {
     color: #fe5555;
 }
 
+.nav-item button.nav-link.active {
+    color: #fe5555;
+    background-color: inherit;
+    border: none;
+}
+
+.nav-item button.nav-link {
+    color: inherit;
+    background-color: inherit;
+    border: none;
+}
+/* -------------------------------------*/
+
+/* ------------ User cards -------------*/
 img.profile-card-img {
     position: relative;
     margin-top: -17.5%;
@@ -14,19 +45,23 @@ img.profile-card-img {
     height: 35%;
 }
 
-img.follow-card-img {
-    width: 4vw;
-    height: 4vw;
-}
-
-div.follow-card-username {
-    max-width: 12vw;
+div.user-card {
     overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 1.5em;
+    overflow-wrap: break-word;
 }
 
-div.follow-card button {
-    font-size: 1.5em;
+img.user-card-profile-img {
+    width: 4rem;
+    height: 4rem;
 }
+
+div.user-card-username {
+    font-size: 1.5rem;
+}
+/* -------------------------------------*/
+
+/* -------------- Forms ----------------*/
+.field-wrapper {
+    padding: 0.5rem;
+}
+/* -------------------------------------*/

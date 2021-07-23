@@ -8,10 +8,16 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['profile_pic', 'profile_banner', 'bio']
 
+    bio = forms.CharField(label="", widget=forms.Textarea(attrs={
+        "rows":4, 
+        "style" : "resize:none;width:100%;padding:1%;", 
+        "placeholder" : "About me..."}
+    ))
+
     def save(self):
         profile = super(ProfileForm, self).save()
 
-        # TODO: Remove old images from storage if they exist.
+        # Removal of old images is handled by django-cleanup.
 
         # Resize the profile picture.
         if self.files.get('profile_pic'):

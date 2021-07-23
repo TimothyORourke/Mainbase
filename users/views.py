@@ -69,7 +69,7 @@ def profile(request, user):
             else:
                 profile_form = temp
 
-    return render(request, 'users/profile.html', { 
+    return render(request, 'blog/profile.html', { 
         'profile' : profile, 'posts' : posts, 'profile_form' : profile_form,
         'follow_suggestions' : follow_suggestions, 'is_following' : is_following,
         'following' : following, 'followers' : followers
@@ -79,7 +79,7 @@ def profile(request, user):
 def follow_api(request, username):
     followee = User.objects.get(username=username)
     if request.method == 'PUT':
-        if not request.user.is_following(followee):
+        if not request.user.is_following(followee) and followee != request.user:
             follow_obj = Follow.objects.create(follower=request.user, followee=followee)
 
         return JsonResponse({'follower': request.user.username, 'followee': followee.username}, status=201)

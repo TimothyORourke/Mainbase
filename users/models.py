@@ -27,7 +27,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to=profile_pic_path, null=True, blank=True)
     profile_banner = models.ImageField(upload_to=profile_banner_path, null=True, blank=True)
-    bio = models.TextField(null=True, blank=True, max_length=280)
+    bio = models.TextField(null=True, blank=True, max_length=280, default="My bio!")
 
     def __str__(self) -> str:
         return f"{self.user.username}'s profile"
@@ -42,7 +42,7 @@ class Follow(models.Model):
 
 class UserPreferences(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    darkmode = models.BooleanField(default=False)
+    darkmode = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return f"{self.user.username}'s preferences"

@@ -1,4 +1,4 @@
-<div class="row bg-light">
+<div class="row bg-light border-bottom border-dark">
     <div class="d-flex col-lg-3 ps-2">
         <nav class="navbar navbar-expand-lg">
             <button class="navbar-toggler border border-dark" type="button" data-bs-toggle="collapse" 
@@ -28,6 +28,7 @@
         <img src="{% static 'blog/favicon.ico' %}">
     </div>
     <div class="d-none d-lg-flex col-lg-3 justify-content-end align-items-center">
+        <button class="btn btn-outline-secondary darkmode-button me-3">Darkmode Toggle</button>
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#postCreateModal">New Post</button>
     </div>
     
@@ -40,10 +41,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {% include 'posts/post_form.html' %}
-                </div>
-                <div class="modal-footer">
-                </div>
+                    <form action="{% url 'post-api' %}" method="post">
+                        {% csrf_token %}
+                        {{ post_form }}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">Cancel</button>
+                        <input class="btn btn-primary d-block" type="submit" value="Post">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

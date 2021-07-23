@@ -13,9 +13,12 @@
         </div>
         <div class="flex-fill ps-3">
             <div class="d-flex align-items-center">
-                <div class="small text-muted">
+                <div class="fw-bold me-3">
                     <a href="{% url 'profile' user=post.author.username %}">
-                    {{ post.author.username }}</a> | {{ post.date_posted }}
+                        {{ post.author.username }}</a>
+                </div>
+                <div class="small text-muted">
+                     {{ post.date_posted }}
                 </div>
                 <div class="ms-auto">
                     {% if request.user == post.author %}

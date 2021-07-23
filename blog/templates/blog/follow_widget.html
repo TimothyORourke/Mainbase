@@ -1,8 +1,11 @@
 <div class="border border-dark rounded-3 mt-3">
     <div class="card-header">Who to follow</div>
-    <div class="card-body">
+    <div>
         {% for user in follow_suggestions %}
             {% include 'blog/follow_card.html' %}
+            {% if not forloop.last %}
+            <div class="border-bottom border-dark"></div>
+            {% endif %}
         {% endfor %}
     </div>
 </div>

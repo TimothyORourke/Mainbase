@@ -11,7 +11,7 @@ function toggleFollowButtonType(button) {
     let isFollowButton = button.hasClass('follow-button');
     console.log(button);
     button.toggleClass('follow-button unfollow-button');
-    button.toggleClass('btn-outline-primary btn-outline-danger');
+    button.toggleClass('btn-primary btn-outline-danger');
     button.off('click');
 
     if (isFollowButton) {
