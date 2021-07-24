@@ -3,6 +3,8 @@
 Mainbase is a Django web application where users can make blog posts. Users can
 follow other users and customize their profile with a profile picture and banner. 
 
+![Mainbase](mainbase.png?raw=true "Mainbase")
+
 ***
 
 ## Getting Started
